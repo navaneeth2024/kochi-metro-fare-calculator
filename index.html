@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kochi Metro Fare Calculator</title>
+</head>
+<body>
+    <br>
+    <h1>Kochi Metro Fare Calculator</h1>
+    <label for="start">Starting Station:</label>
+    <select id="start">
+        <option>Choose starting point</option>
+        <option>Thripunithura Terminal</option>
+        <option>SN Junction</option>
+        <option>Vadakkekotta</option>
+        <option>Petta</option>
+        <option>Thaikoodam</option>
+        <option>Vyttila</option>
+        <option>Elamkulam</option>
+        <option>Kadavanthra</option>
+        <option>Ernakulam South</option>
+        <option>Maharajas</option>
+        <option>MG Road</option>
+        <option>Town Hall</option>
+        <option>Kaloor</option>
+        <option>JLN Stadium</option>
+        <option>Palarivattom</option>
+        <option>Changampuzha</option>
+        <option>Edappally</option>
+        <option>Pathadipalam</option>
+        <option>Cochin University</option>
+        <option>Kalamassery</option>
+        <option>Muttom</option>
+        <option>Ambattukavu</option>
+        <option>Companypady</option>
+        <option>Pulinchodu</option>
+        <option>Aluva</option>
+    </select>
+
+    <br><br><br>
+
+    <label for="end">Destination Station:</label>
+    <select id="end">
+        <option>Choose destination</option>
+        <option>Aluva</option>
+        <option>Pulinchodu</option>
+        <option>Companypady</option>
+        <option>Ambattukavu</option>
+        <option>Muttom</option>
+        <option>Kalamassery</option>
+        <option>Cochin University</option>
+        <option>Pathadipalam</option>
+        <option>Edappally</option>
+        <option>Changampuzha</option>
+        <option>Palarivattom</option>
+        <option>JLN Stadium</option>
+        <option>Kaloor</option>
+        <option>Town Hall</option>
+        <option>MG Road</option>
+        <option>Maharajas</option>
+        <option>Ernakulam South</option>
+        <option>Kadavanthra</option>
+        <option>Elamkulam</option>
+        <option>Vyttila</option>
+        <option>Thaikoodam</option>
+        <option>Petta</option>
+        <option>Vadakkekotta</option>
+        <option>SN Junction</option>
+        <option>Thripunithura Terminal</option>
+    </select>
+
+    <br><br><br>
+
+    <button onclick="calculateFare()">Find Fare</button>
+
+    <h3 id="fare"></h3>
+
+    <script>
+        const fares = [
+
+            // Aluva, Pulinchodu, Companypady, Ambattukavu, Muttom, Kalamassery, Cochin University, Pathadipalam, Edappally, Changampuzha, Palarivattom, JLN Stadium, Kaloor, Town Hall, MG Road, Maharajas, Ernakulam South, Kadavanthra, Elamkulam, Vyttila, Thaikoodam, Petta, Vadakkekotta, SN Junction, Thripunithura Terminal
+
+            [10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60, 60, 60, 60, 60, 60],  // Aluva
+
+            [10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60, 60, 60, 60, 60],  // Pulinchodu
+
+            [20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60, 60, 60, 60],  // Companypady
+
+            [20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60, 60, 60],  // Ambattukavu
+
+            [20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60, 60],  // Muttom
+
+            [30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60, 60],  // Kalamassery
+
+            [30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60, 60],  // Cochin University
+
+            [30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50, 60],  // Pathadipalam
+
+            [40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50, 50],  // Edappally
+
+            [40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50, 50],  // Changampuzha
+
+            [40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50, 50],  // Palarivattom
+
+            [40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50, 50],  // JLN Stadium
+
+            [50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40, 50],  // Kaloor
+
+            [50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40, 40],  // Town Hall
+
+            [50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40, 40],  // MG Road
+
+            [50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40, 40],  // Maharajas
+
+            [50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30, 40],  // Ernakulam South
+
+            [60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30, 30],  // Kadavanthra
+
+            [60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30, 30],  // Elamkulam
+
+            [60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20, 30],  // Vyttila
+
+            [60, 60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20, 20],  // Thaikoodam
+
+            [60, 60, 60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20, 20],  // Petta
+
+            [60, 60, 60, 60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10, 20],  // Vadakkekotta
+
+            [60, 60, 60, 60, 60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10, 10],  // SN Junction
+
+            [60, 60, 60, 60, 60, 60, 60, 60, 50, 50, 50, 50, 50, 40, 40, 40, 40, 30, 30, 30, 20, 20, 20, 10, 10]   // Thripunithura Terminal
+
+        ];
+
+        const stations = [
+
+            'Aluva', 'Pulinchodu', 'Companypady', 'Ambattukavu', 'Muttom', 'Kalamassery',
+
+            'Cochin University', 'Pathadipalam', 'Edappally', 'Changampuzha', 'Palarivattom',
+
+            'JLN Stadium', 'Kaloor', 'Town Hall', 'MG Road', 'Maharajas', 'Ernakulam South',
+
+            'Kadavanthra', 'Elamkulam', 'Vyttila', 'Thaikoodam', 'Petta', 'Vadakkekotta',
+
+            'SN Junction', 'Thripunithura Terminal'
+
+        ];
+
+        function calculateFare() {
+            const start = document.getElementById("start").value;
+            const end = document.getElementById("end").value;
+            const startIndex = stations.indexOf(start);
+            const endIndex = stations.indexOf(end);
+            const fare = fares[startIndex][endIndex];
+            document.getElementById("fare").innerHTML = `The fare from ${start} to ${end} is ₹${fare}`;
+        }
+    </script>
+</body>
+</html>
